@@ -1,6 +1,7 @@
 # Karmaist
-
 This project is a productivity dashboard utilizing the [Todoist API](https://developer.todoist.com/).
+
+[![Build Status](https://travis-ci.org/remarks/karmaist.svg?branch=master)](https://travis-ci.org/remarks/karmaist)
 
 ## Key Points
 

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {LoginAPI} from './Actions';
 
 class Login extends Component {
   constructor(props) {
@@ -8,8 +10,7 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // TODO move to actions
-    window.location = 'https://todoist.com/oauth/authorize?client_id=9f76fb38a227416ea00df4d7e46784a8&scope=data:read&state=helloworld';
+    this.props.dispatch(LoginAPI());
   }
 
   render() {
@@ -23,4 +24,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect()(Login);
