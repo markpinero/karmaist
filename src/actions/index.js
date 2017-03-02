@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 export const SET_TOKEN = 'SET_TOKEN';
 
 export const setToken = (token) => ({
