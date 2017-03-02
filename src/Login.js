@@ -1,22 +1,34 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {LoginAPI} from './Actions';
+import {setToken} from './actions';
 
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: null
+    }
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleChange(e) {
+    this.setState({
+      value: e.target.value
+    });
+  }
+
   handleSubmit(e) {
+    console.log(this.state.value);
     e.preventDefault();
-    this.props.dispatch(LoginAPI());
+    this.props.dispatch(setToken(this.state.value));
   }
 
   render() {
     return (
-      <div className="container text-center">
+      <div>
         <form onSubmit={this.handleSubmit}>
+          <input onChange={this.handleChange} value={this.props.value} />
           <button type="submit" className="btn btn-primary">Login</button>
         </form>
       </div>

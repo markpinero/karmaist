@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
-import { Panel } from 'react-bootstrap';
-
-import WeeklyChart from './WeeklyChart';
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -16,7 +13,6 @@ export class Dashboard extends Component {
   }
 
   componentDidMount() {
-    // TODO: Move to Reducer
     const url = 'https://todoist.com/API/v7/completed/get_stats'
     fetch(`${url}?token=${this.state.hard_token}`)
       .then(response => response.json())
@@ -37,14 +33,7 @@ export class Dashboard extends Component {
   render() {
     console.log(this.state.data);
 
-    // TODO: Modularize Dashboard widgets
-    return (
-      <div className="container">
-        <Panel header="Weekly Productivity">
-          <WeeklyChart data={this.state.data.days_items} />
-        </Panel>
-      </div>
-    );
+    return null;
   }
 }
 
