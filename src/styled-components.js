@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled, {injectGlobal, css} from 'styled-components';
 
 const small = (...args) => css `
@@ -12,8 +13,9 @@ const medium = (...args) => css `
   }
 `
 
+//  @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700');
+
 injectGlobal `
-  @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700');
 
   *, *:before, *:after {
     box-sizing: border-box;
@@ -45,6 +47,7 @@ export const Authorize = styled.button `
 // INSIGHTS
 
 export const Section = styled.section `
+  background: ${props => props.background ? props.background : 'white' }
   padding: 1rem;
   ${medium `
     padding: 4rem;
@@ -68,7 +71,10 @@ export const AvgData = styled.span`
 
 export const Insight = styled.div `
   flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
   padding: 0.5rem;
+  background: ${props => props.background ? props.background : 'transparent'};
   ${medium `
     padding: 2rem;
     `}

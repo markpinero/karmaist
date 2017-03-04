@@ -1,24 +1,24 @@
 import * as actions from '../actions';
 
 const initialState = {
-  validToken: false,
+  isFetching: false,
+  validToken: null,
   token: null
 }
 
 export default (state = initialState, action) => {
-  if(action.type === actions.SET_TOKEN) {
-    let validToken = false;
-    let token;
 
-    if(action.token === 'test') {
-      validToken = true;
-      token = action.token;
-    }
-
-    return { ...state,
-      validToken: validToken,
-      token: token
-    }
+  switch (action.type) {
+    case actions.INVALIDATE_TOKEN:
+      return { ...state,
+        validToken: false
+      }
+    case actions.SET_TOKEN:
+      return { ...state,
+        validToken: true,
+        token: action.token
+      }
+    default:
+      return state;
   }
-  return state;
 }

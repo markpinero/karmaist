@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {setToken} from './actions';
+import {fetchData} from './actions';
 
 class Login extends Component {
   constructor(props) {
@@ -19,9 +19,8 @@ class Login extends Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state.value);
     e.preventDefault();
-    this.props.dispatch(setToken(this.state.value));
+    this.props.dispatch(fetchData(this.state.value));
   }
 
   render() {
