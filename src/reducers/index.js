@@ -6,7 +6,7 @@ const initialState = {
   token: null
 }
 
-export default (state = initialState, action) => {
+export default function reducers(state = initialState, action) {
 
   switch (action.type) {
     case actions.INVALIDATE_TOKEN:
