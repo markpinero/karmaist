@@ -3,7 +3,8 @@ import * as actions from '../actions';
 const initialState = {
   isFetching: false,
   validToken: null,
-  token: null
+  token: null,
+  data: []
 }
 
 export default function reducers(state = initialState, action) {
@@ -17,6 +18,10 @@ export default function reducers(state = initialState, action) {
       return { ...state,
         validToken: true,
         token: action.token
+      }
+    case actions.PARSE_DATA:
+      return {...state,
+        data: action.data
       }
     default:
       return state;
