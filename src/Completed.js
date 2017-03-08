@@ -4,8 +4,6 @@ import { Line } from 'react-chartjs-2';
 
 export default class Completed extends Component {
   render() {
-    console.log(this.props);
-
     let lineChart = {
       type: 'line',
       labels: this.props.labels,

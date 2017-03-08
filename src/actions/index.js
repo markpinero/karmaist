@@ -39,15 +39,14 @@ export function fetchData(token) {
     fetch(`https://todoist.com/API/v7/completed/get_stats?token=${token}&limit=1`)
       .then(response => response.json())
       .then(response => {
-        console.log('Set Token');
         dispatch(setToken(token));
-        dispatch(fetchAllData(token));
+        // dispatch(fetchAllData(token));
         dispatch(fetchActivity(token));
       })
-      .then(() => {
-        browserHistory.push('/dashboard');
-        console.log('/dashboard');
-      })
+      // .then(() => {
+      //   browserHistory.push('/dashboard');
+      //   console.log('/dashboard');
+      // })
       .catch((error) => {
         console.log(`${error} (Invalidate Token)`);
         dispatch(invalidateToken)
@@ -60,28 +59,49 @@ const fetchAllData = (token) => {
     fetch(`https://todoist.com/API/v7/completed/get_stats?token=${token}`)
       .then(response => response.json())
       .then(response => {
-        let weeksCompleted = {
+        let completed = {
             dates: [],
-            total_completed: []
-          };
+            total_completed: [],
+            bestDay: null
+        };
 
         _.eachRight(response.days_items, (value, key) => {
-          weeksCompleted.dates.push(moment(value.date).format('dddd'));
-          weeksCompleted.total_completed.push(value.total_completed);
-          console.log('done');
+          completed.dates.push(moment(value.date).format('dddd'));
+          completed.total_completed.push(value.total_completed);
         })
-        dispatch(parseCompleted(weeksCompleted));
+
+        dispatch(parseCompleted(completed));
       })
   }
 }
 
 const fetchActivity = (token) => {
+  console.log('fetchActivity()');
   return dispatch => {
-    fetch(`https://todoist.com/API/v7/activity/get?token=${token}`)
+    fetch(`https://todoist.com/API/v7/activity/get?token=${token}&limit=100`)
     .then(response => response.json())
     .then(response => {
-      let activity = response;
-      dispatch(parseActivity(activity));
+      // console.log(response);
+
+      let activityAdded = _(response)
+        .filter(['event_type', 'added'])
+        .sortBy('event_date')
+        .value();
+
+      let activityCompleted = _(response)
+        .filter(['event_type', 'completed'])
+        .sortBy('event_date')
+        .value();
+
+      let activityUpdated = _(response)
+        .filter(['event_type', 'updated'])
+        .sortBy('event_date')
+        .value();
+
+      console.log(activityAdded);
+      console.log(activityCompleted);
+      console.log(activityUpdated);
+      // dispatch(parseActivity(activity));
     })
   }
 }

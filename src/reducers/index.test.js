@@ -5,12 +5,11 @@ describe('Reducers', () => {
     expect(reducers(undefined, {}))
       .toEqual(
         {
-          isFetching: false,
           validToken: null,
           token: null,
           data: {
             activity: {},
-            weeksCompleted: {}
+            completed: {}
           }
         }
       )

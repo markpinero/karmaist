@@ -6,7 +6,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Completed labels={this.props.data.weeksCompleted.dates} data={this.props.data.weeksCompleted.total_completed} />
+        <Completed labels={this.props.data.completed.dates} data={this.props.data.completed.total_completed} />
       </div>
     );
   }

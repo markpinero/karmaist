@@ -1,11 +1,10 @@
 import * as actions from '../actions';
 
 const initialState = {
-  isFetching: false,
   validToken: null,
   token: null,
   data: {
-    weeksCompleted: {},
+    completed: {},
     activity: {}
   }
 }
@@ -26,7 +25,7 @@ export default function reducers(state = initialState, action) {
       return {...state,
         data: {
           ...state.data,
-          weeksCompleted: action.data
+          completed: action.data
         }
       }
     case actions.PARSE_ACTIVITY:
