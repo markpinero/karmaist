@@ -7,7 +7,8 @@ import moment from 'moment';
 export const SET_TOKEN = 'SET_TOKEN';
 export const INVALIDATE_TOKEN = 'INVALIDATE_TOKEN';
 export const REQUEST_DATA = 'REQUEST_DATA';
-export const PARSE_DATA = 'PARSE_DATA';
+export const PARSE_COMPLETED = 'PARSE_COMPLETED';
+export const PARSE_ACTIVITY = 'PARSE_ACTIVITY';
 
 export const setToken = (token) => ({
   type: 'SET_TOKEN',
@@ -23,8 +24,13 @@ export const requestData = (token) => ({
   token
 })
 
-export const parseData = (data) => ({
-  type: 'PARSE_DATA',
+export const parseCompleted = (data) => ({
+  type: 'PARSE_COMPLETED',
+  data
+})
+
+export const parseActivity = (data) => ({
+  type: 'PARSE_ACTIVITY',
   data
 })
 
@@ -36,32 +42,46 @@ export function fetchData(token) {
         console.log('Set Token');
         dispatch(setToken(token));
         dispatch(fetchAllData(token));
+        dispatch(fetchActivity(token));
       })
-      .then(() => { browserHistory.push('/dashboard') })
+      .then(() => {
+        browserHistory.push('/dashboard');
+        console.log('/dashboard');
+      })
       .catch((error) => {
-        console.log(error, 'Invalidate Token');
+        console.log(`${error} (Invalidate Token)`);
         dispatch(invalidateToken)
       })
   }
 }
 
 const fetchAllData = (token) => {
-  console.log('fetchAllData()');
   return dispatch => {
     fetch(`https://todoist.com/API/v7/completed/get_stats?token=${token}`)
       .then(response => response.json())
       .then(response => {
         let weeksCompleted = {
-          dates: [],
-          total_completed: []
-        };
+            dates: [],
+            total_completed: []
+          };
 
         _.eachRight(response.days_items, (value, key) => {
           weeksCompleted.dates.push(moment(value.date).format('dddd'));
           weeksCompleted.total_completed.push(value.total_completed);
+          console.log('done');
         })
-
-        dispatch(parseData(weeksCompleted));
+        dispatch(parseCompleted(weeksCompleted));
       })
+  }
+}
+
+const fetchActivity = (token) => {
+  return dispatch => {
+    fetch(`https://todoist.com/API/v7/activity/get?token=${token}`)
+    .then(response => response.json())
+    .then(response => {
+      let activity = response;
+      dispatch(parseActivity(activity));
+    })
   }
 }

@@ -7,7 +7,11 @@ describe('Reducers', () => {
         {
           isFetching: false,
           validToken: null,
-          token: null
+          token: null,
+          data: {
+            activity: {},
+            weeksCompleted: {}
+          }
         }
       )
   })

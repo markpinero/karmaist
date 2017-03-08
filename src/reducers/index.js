@@ -4,9 +4,12 @@ const initialState = {
   isFetching: false,
   validToken: null,
   token: null,
-  data: []
+  data: {
+    weeksCompleted: {},
+    activity: {}
+  }
 }
-
+// localStorage
 export default function reducers(state = initialState, action) {
 
   switch (action.type) {
@@ -19,9 +22,19 @@ export default function reducers(state = initialState, action) {
         validToken: true,
         token: action.token
       }
-    case actions.PARSE_DATA:
+    case actions.PARSE_COMPLETED:
       return {...state,
-        data: action.data
+        data: {
+          ...state.data,
+          weeksCompleted: action.data
+        }
+      }
+    case actions.PARSE_ACTIVITY:
+      return {...state,
+        data: {
+          ...state.data,
+          activity: action.data
+        }
       }
     default:
       return state;
