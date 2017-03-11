@@ -8,7 +8,7 @@ const initialState = {
     activity: {}
   }
 }
-// localStorage
+
 export default function reducers(state = initialState, action) {
 
   switch (action.type) {

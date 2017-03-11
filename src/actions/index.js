@@ -13,26 +13,26 @@ export const PARSE_ACTIVITY = 'PARSE_ACTIVITY';
 export const setToken = (token) => ({
   type: 'SET_TOKEN',
   token
-})
+});
 
 export const invalidateToken = {
   type: 'INVALIDATE_TOKEN'
-}
+};
 
 export const requestData = (token) => ({
   type: 'REQUEST_DATA',
   token
-})
+});
 
 export const parseCompleted = (data) => ({
   type: 'PARSE_COMPLETED',
   data
-})
+});
 
 export const parseActivity = (data) => ({
   type: 'PARSE_ACTIVITY',
   data
-})
+});
 
 export function fetchData(token) {
   return dispatch => {
@@ -50,7 +50,7 @@ export function fetchData(token) {
       .catch((error) => {
         console.log(`${error} (Invalidate Token)`);
         dispatch(invalidateToken)
-      })
+      });
   }
 }
 
@@ -68,7 +68,7 @@ const fetchAllData = (token) => {
         _.eachRight(response.days_items, (value, key) => {
           completed.dates.push(moment(value.date).format('dddd'));
           completed.total_completed.push(value.total_completed);
-        })
+        });
 
         dispatch(parseCompleted(completed));
       })

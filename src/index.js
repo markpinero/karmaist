@@ -4,9 +4,9 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import Store from './Store';
 
-import App from './App';
-import Dashboard from './Dashboard';
-import Login from './Login';
+import App from './components/App';
+import Dashboard from './components/Dashboard';
+import Login from './components/Login';
 
 ReactDOM.render(
   <Provider store={Store}>

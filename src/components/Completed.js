@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Section, Insight, Highlight, Description } from './styled-components';
+import { Section, Insight, Highlight, Description } from '../styled-components';
 import { Line } from 'react-chartjs-2';
 
 export default class Completed extends Component {
