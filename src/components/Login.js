@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {fetchData} from '../actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchData } from "../actions";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: null
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -31,7 +31,7 @@ class Login extends Component {
           <button type="submit" className="btn btn-primary">Login</button>
         </form>
       </div>
-      )
+    );
   }
 }
 

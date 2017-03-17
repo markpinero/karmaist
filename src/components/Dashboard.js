@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Completed from './Completed';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Completed from "./Completed";
 
 export class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Completed labels={this.props.data.completed.dates} data={this.props.data.completed.total_completed} />
+        <Completed
+          labels={this.props.data.completed.dates}
+          data={this.props.data.completed.total_completed}
+        />
       </div>
     );
   }
@@ -14,6 +17,6 @@ export class Dashboard extends Component {
 
 const mapStateToProps = (state, props) => ({
   data: state.data
-})
+});
 
 export default connect(mapStateToProps)(Dashboard);
