@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 function Header() {
   return (
-    <Link href="/auth/todoist">Login</Link>
+    <Link href="http://localhost:3001/auth/todoist">Login</Link>
     )
 }
 

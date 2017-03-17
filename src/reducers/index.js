@@ -24,14 +24,12 @@ export default function reducers(state = initialState, action) {
     case actions.PARSE_COMPLETED:
       return {...state,
         data: {
-          ...state.data,
           completed: action.data
         }
       }
     case actions.PARSE_ACTIVITY:
       return {...state,
         data: {
-          ...state.data,
           activity: action.data
         }
       }

@@ -1,21 +1,18 @@
 module.exports = (app) => {
   const config            = require('./config')
       , passport          = require('passport')
-      , todoist           = require('passport-todoist')
-      , todoistStrategy   = todoist.Strategy
+      , todoistStrategy   = require('passport-todoist').Strategy
       , { User }          = require('./models/user');
 
   passport.use('todoist', new todoistStrategy({
     clientID: config.clientID,
     clientSecret: config.clientSecret
-  }, (accessToken, done) => {
-    User.findOrCreate({ TodoistID: todoist.id }, (err, user) => {
-      console.log(`${user}, ${accessToken}`);
-      return done(err, user);
+  }, (accessToken, refreshToken, todoist, callback) => {
+    User.update( { id: todoist.id }, { upsert: true }, (err, user) => {
+      return callback(err, user);
     });
-    }
-  ));
+  }));
 
   app.get('/auth/todoist', passport.authenticate('todoist', { scope: 'data:read_write', 'state': 'statedsfkahdfkaj' }));
-  app.get('/auth/todoist/callback', passport.authenticate('todoist', {successRedirect: '/profile', failureRedirect: '/'}));
-}
+  app.get('/auth/todoist/callback', passport.authenticate('todoist', {session: false, successRedirect: 'localhost:3000/dashboard', failureRedirect: '/dash'}));
+};

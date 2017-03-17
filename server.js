@@ -13,13 +13,13 @@ app.use(jsonParser);
 app.use(passport.initialize());
 app.use(passport.session());
 
+let auth = require('./authentication')(app);
+
 mongoose.connect('mongodb://localhost/karma-dev')
   .then(() => {
     app.listen(process.env.PORT || 3001, () => {
       console.log(`Listening on ${process.env.PORT || 3001}`);
     });
   });
-
-let auth = require('./authentication')(app);
 
 module.exports = app;
