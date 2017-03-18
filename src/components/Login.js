@@ -1,35 +1,24 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchData } from "../actions";
+import React from 'react';
+import { connect } from 'react-redux';
+import { handleLogin } from '../actions';
 
-class Login extends Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: null
     };
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({
-      value: e.target.value
-    });
-  }
-
   handleSubmit(e) {
-    e.preventDefault();
-    this.props.dispatch(fetchData(this.state.value));
+    this.props.dispatch(handleLogin());
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} value={this.props.value} />
-          <button type="submit" className="btn btn-primary">Login</button>
-        </form>
+        <a href="#" onClick={this.handleSubmit}>Login</a>
       </div>
     );
   }

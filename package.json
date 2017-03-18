@@ -40,5 +40,6 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build && gh-pages -d build"
   },
-  "homepage": "http://remarks.github.io/karmaist"
+  "homepage": "http://remarks.github.io/karmaist",
+  "proxy": "http://localhost:3001"
 }

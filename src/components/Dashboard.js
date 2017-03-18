@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Completed from "./Completed";
+import React from 'react';
+import { connect } from 'react-redux';
+import Completed from './Completed';
 
-export class Dashboard extends Component {
+export class Dashboard extends React.Component {
   render() {
     return (
       <div>

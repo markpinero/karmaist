@@ -1,33 +1,20 @@
-import * as actions from "../actions";
-import { initialState } from "./initialState";
+import * as actions from '../actions';
+import { initialState } from './initialState';
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
-    case actions.INVALIDATE_TOKEN:
+    case actions.SENDING_REQUEST:
       return {
         ...state,
-        validToken: false
+        sendingRequest: action.sending
       };
-    case actions.SET_TOKEN:
-      return {
-        ...state,
-        validToken: true,
-        token: action.token
-      };
-    case actions.PARSE_COMPLETED:
-      return {
-        ...state,
-        data: {
-          completed: action.data
-        }
-      };
-    case actions.PARSE_ACTIVITY:
-      return {
-        ...state,
-        data: {
-          activity: action.data
-        }
-      };
+    // case actions.PARSE_ACTIVITY:
+    //   return {
+    //     ...state,
+    //     data: {
+    //       activity: action.data
+    //     }
+    //   };
     default:
       return state;
   }

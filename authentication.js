@@ -1,8 +1,8 @@
 module.exports = app => {
-  const config = require("./config"),
-    passport = require("passport"),
-    todoistStrategy = require("passport-todoist").Strategy,
-    { User } = require("./models/user");
+  const config = require('./config'),
+    passport = require('passport'),
+    todoistStrategy = require('passport-todoist').Strategy,
+    { User } = require('./models/user');
 
   passport.serializeUser((user, done) => {
     done(null, user);
@@ -12,7 +12,7 @@ module.exports = app => {
   });
 
   passport.use(
-    "todoist",
+    'todoist',
     new todoistStrategy(
       {
         clientID: config.clientID,
@@ -23,8 +23,7 @@ module.exports = app => {
         let update = { id: todoist.id, token: todoist.access_token };
         console.log(accessToken, refreshToken, todoist, callback);
         User.findOneAndUpdate(query, update, { upsert: true }, (err, user) => {
-          console.log(err);
-          return callback(undefined, user);
+          return callback(err, user);
         });
       }
     )
@@ -32,23 +31,23 @@ module.exports = app => {
 
   // TODO: Move to routes
   app.get(
-    "/auth/todoist",
-    passport.authenticate("todoist", {
-      scope: "data:read_write",
-      state: "klkhfasdjf"
+    '/auth/todoist',
+    passport.authenticate('todoist', {
+      scope: 'data:read_write',
+      state: 'klkhfasdjf'
     })
   );
   app.get(
-    "/auth/todoist/callback",
-    passport.authenticate("todoist", {
-      successRedirect: "/auth/complete",
-      failureRedirect: "/"
+    '/auth/todoist/callback',
+    passport.authenticate('todoist', {
+      successRedirect: '/auth/complete',
+      failureRedirect: '/'
     })
   );
-  app.get("/auth/complete", (req, res) => {
+  app.get('/auth/complete', (req, res) => {
     let userId = req.session.passport.user.id;
     User.findOne({ id: userId }, (err, user) => {
-      res.status(200).set("X-AUTH-TOKEN", user.token).json({ message: "sent" });
+      res.status(200).set('X-AUTH-TOKEN', user.token).json({ message: 'sent' });
     });
   });
 };

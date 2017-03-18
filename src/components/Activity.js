@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { Section, Insight, Highlight, Description } from "../styled-components";
-import { Line } from "react-chartjs-2";
+import React from 'react';
+import { Section, Insight, Highlight, Description } from '../styled-components';
+import { Line } from 'react-chartjs-2';
 
-export default class Activity extends Component {
+export default class Activity extends React.Component {
   render() {
     let lineChart = {
-      type: "line",
+      type: 'line',
       data: {
         datasets: [
           {
-            label: "Completed",
+            label: 'Completed',
             data: this.props.completed,
             fill: false
           },
           {
-            label: "Updated",
+            label: 'Updated',
             data: this.props.updated,
             fill: false
           },
           {
-            label: "Added",
+            label: 'Added',
             data: this.props.added
           }
         ]
