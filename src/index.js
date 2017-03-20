@@ -16,7 +16,6 @@ ReactDOM.render(
         <Route path="dashboard" component={Dashboard} />
       </Route>
     </Router>
-  </Provider>
-  ,
+  </Provider>,
   document.getElementById('root')
 );

@@ -7,27 +7,33 @@ export default class Activity extends Component {
     let lineChart = {
       type: 'line',
       data: {
-        datasets: [{
-          label: 'Completed',
-          data: this.props.completed,
-          fill: false
-        }, {
-          label: 'Updated',
-          data: this.props.updated,
-          fill: false
-        }, {
-          label: 'Added',
-          data: this.props.added
-        }]
+        datasets: [
+          {
+            label: 'Completed',
+            data: this.props.completed,
+            fill: false
+          },
+          {
+            label: 'Updated',
+            data: this.props.updated,
+            fill: false
+          },
+          {
+            label: 'Added',
+            data: this.props.added
+          }
+        ]
       },
       options: {
         scales: {
-          xAxes: [{
-            display: false
-          }]
+          xAxes: [
+            {
+              display: false
+            }
+          ]
         }
       }
-    }
+    };
 
     return (
       <Section background="blue">

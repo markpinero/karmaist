@@ -10,7 +10,7 @@ export const REQUEST_DATA = 'REQUEST_DATA';
 export const PARSE_COMPLETED = 'PARSE_COMPLETED';
 export const PARSE_ACTIVITY = 'PARSE_ACTIVITY';
 
-export const setToken = (token) => ({
+export const setToken = token => ({
   type: 'SET_TOKEN',
   token
 });
@@ -19,24 +19,26 @@ export const invalidateToken = {
   type: 'INVALIDATE_TOKEN'
 };
 
-export const requestData = (token) => ({
+export const requestData = token => ({
   type: 'REQUEST_DATA',
   token
 });
 
-export const parseCompleted = (data) => ({
+export const parseCompleted = data => ({
   type: 'PARSE_COMPLETED',
   data
 });
 
-export const parseActivity = (data) => ({
+export const parseActivity = data => ({
   type: 'PARSE_ACTIVITY',
   data
 });
 
 export function fetchData(token) {
   return dispatch => {
-    fetch(`https://todoist.com/API/v7/completed/get_stats?token=${token}&limit=1`)
+    fetch(
+      `https://todoist.com/API/v7/completed/get_stats?token=${token}&limit=1`
+    )
       .then(response => response.json())
       .then(response => {
         dispatch(setToken(token));
@@ -47,22 +49,22 @@ export function fetchData(token) {
       //   browserHistory.push('/dashboard');
       //   console.log('/dashboard');
       // })
-      .catch((error) => {
+      .catch(error => {
         console.log(`${error} (Invalidate Token)`);
-        dispatch(invalidateToken)
+        dispatch(invalidateToken);
       });
-  }
+  };
 }
 
-const fetchAllData = (token) => {
+const fetchAllData = token => {
   return dispatch => {
     fetch(`https://todoist.com/API/v7/completed/get_stats?token=${token}`)
       .then(response => response.json())
       .then(response => {
         let completed = {
-            dates: [],
-            total_completed: [],
-            bestDay: null
+          dates: [],
+          total_completed: [],
+          bestDay: null
         };
 
         _.eachRight(response.days_items, (value, key) => {
@@ -71,37 +73,37 @@ const fetchAllData = (token) => {
         });
 
         dispatch(parseCompleted(completed));
-      })
-  }
-}
+      });
+  };
+};
 
-const fetchActivity = (token) => {
+const fetchActivity = token => {
   console.log('fetchActivity()');
   return dispatch => {
     fetch(`https://todoist.com/API/v7/activity/get?token=${token}&limit=100`)
-    .then(response => response.json())
-    .then(response => {
-      // console.log(response);
+      .then(response => response.json())
+      .then(response => {
+        // console.log(response);
 
-      let activityAdded = _(response)
-        .filter(['event_type', 'added'])
-        .sortBy('event_date')
-        .value();
+        let activityAdded = _(response)
+          .filter(['event_type', 'added'])
+          .sortBy('event_date')
+          .value();
 
-      let activityCompleted = _(response)
-        .filter(['event_type', 'completed'])
-        .sortBy('event_date')
-        .value();
+        let activityCompleted = _(response)
+          .filter(['event_type', 'completed'])
+          .sortBy('event_date')
+          .value();
 
-      let activityUpdated = _(response)
-        .filter(['event_type', 'updated'])
-        .sortBy('event_date')
-        .value();
+        let activityUpdated = _(response)
+          .filter(['event_type', 'updated'])
+          .sortBy('event_date')
+          .value();
 
-      console.log(activityAdded);
-      console.log(activityCompleted);
-      console.log(activityUpdated);
-      // dispatch(parseActivity(activity));
-    })
-  }
-}
+        console.log(activityAdded);
+        console.log(activityCompleted);
+        console.log(activityUpdated);
+        // dispatch(parseActivity(activity));
+      });
+  };
+};

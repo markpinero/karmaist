@@ -5,7 +5,5 @@ import thunk from 'redux-thunk';
 
 export default createStore(
   Reducer,
-  composeWithDevTools(
-    applyMiddleware(thunk)
-  )
+  composeWithDevTools(applyMiddleware(thunk))
 );
