@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { handleLogin } from '../actions';
+import { connect } from 'react-redux';
 
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
-      <div>
-        {/*}<Header />*/}
-        {this.props.children}
+      <div className="App">
+        <a
+          href="#"
+          onClick={() => {
+            this.props.dispatch(handleLogin(true));
+          }}>
+          Login
+        </a>
       </div>
     );
   }
 }
 
-export default App;
+export default connect()(App);

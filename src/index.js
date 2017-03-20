@@ -1,21 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Router, Route, IndexRoute, browserHistory } from "react-router";
-import { Provider } from "react-redux";
-import Store from "./Store";
-
-import App from "./components/App";
-import Dashboard from "./components/Dashboard";
-import Login from "./components/Login";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import App from './components/App';
+import Store from './store';
+import './index.css';
 
 ReactDOM.render(
   <Provider store={Store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Login} />
-        <Route path="dashboard" component={Dashboard} />
-      </Route>
+    <Router>
+      <Route exact path="/" component={App} />
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
