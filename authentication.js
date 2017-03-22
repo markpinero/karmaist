@@ -5,7 +5,7 @@ module.exports = app => {
     { User } = require('./models/user');
 
   passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user);
   });
 
   passport.deserializeUser(function(id, done) {
@@ -22,9 +22,13 @@ module.exports = app => {
         clientSecret: config.clientSecret
       },
       (accessToken, refreshToken, todoist, callback) => {
-        User.update({ id: todoist.id }, { upsert: true }, (err, user) => {
-          return callback(err, user);
-        });
+        User.findOneAndUpdate(
+          { id: todoist.id },
+          { upsert: true },
+          (err, user) => {
+            return callback(err, user);
+          }
+        );
       }
     )
   );
@@ -37,11 +41,26 @@ module.exports = app => {
     })
   );
   app.get(
-    '/auth/todoist/callback',
+    '/auth/callback',
     passport.authenticate('todoist', {
-      session: false,
-      successRedirect: 'localhost:3000/dashboard',
+      successRedirect: '/auth/complete',
       failureRedirect: '/dash'
     })
   );
+  app.get('/auth/complete', (req, res) => {
+    // req.session.user = req.session.passport.user;
+    // let session = req.session.accessToken;
+    console.log(req.session);
+    req.headers['X-AUTH-TOKEN'] = req.session.passport.user.token;
+    // res.cookie('tid', req.session.passport.user.token, {
+    //   domain: 'http://localhost:3000',
+    //   path: '/'
+    // });
+    res.redirect('http://localhost:3000/test');
+  });
+
+  app.get('/user/data', (req, res) => {
+    console.log(req.session);
+    res.end();
+  });
 };

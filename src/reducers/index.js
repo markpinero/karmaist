@@ -1,13 +1,5 @@
 import * as actions from '../actions';
-
-const initialState = {
-  validToken: null,
-  token: null,
-  data: {
-    completed: {},
-    activity: {}
-  }
-};
+import initialState from './initialState';
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
@@ -35,6 +27,11 @@ export default function reducers(state = initialState, action) {
         data: {
           activity: action.data
         }
+      };
+    case actions.PARSE_USER:
+      return {
+        ...state,
+        user: action.user
       };
     default:
       return state;

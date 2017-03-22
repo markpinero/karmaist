@@ -6,6 +6,10 @@ export class Dashboard extends Component {
   render() {
     return (
       <div>
+        <center>
+          <img src={this.props.user.avatar} style={{ borderRadius: '50%' }} />
+        </center>
+        <h1>Overview of <strong>{this.props.user.name}</strong></h1>
         <Completed
           labels={this.props.data.completed.dates}
           data={this.props.data.completed.total_completed}
@@ -16,7 +20,8 @@ export class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  data: state.data
+  data: state.data,
+  user: state.user
 });
 
 export default connect(mapStateToProps)(Dashboard);

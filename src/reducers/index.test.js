@@ -8,7 +8,8 @@ describe('Reducers', () => {
       data: {
         activity: {},
         completed: {}
-      }
+      },
+      user: {}
     });
   });
   // it('Should invalidate token', () => {
