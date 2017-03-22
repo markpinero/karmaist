@@ -9,6 +9,7 @@ export const INVALIDATE_TOKEN = 'INVALIDATE_TOKEN';
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const PARSE_COMPLETED = 'PARSE_COMPLETED';
 export const PARSE_ACTIVITY = 'PARSE_ACTIVITY';
+export const PARSE_USER = 'PARSE_USER';
 
 export const setToken = token => ({
   type: 'SET_TOKEN',
@@ -34,6 +35,13 @@ export const parseActivity = data => ({
   data
 });
 
+export const parseUser = user => ({
+  type: 'PARSE_USER',
+  user
+});
+
+const baseApi = 'https://todoist.com/API/v7/';
+
 export function fetchData(token) {
   return dispatch => {
     fetch(
@@ -42,13 +50,14 @@ export function fetchData(token) {
       .then(response => response.json())
       .then(response => {
         dispatch(setToken(token));
-        // dispatch(fetchAllData(token));
-        dispatch(fetchActivity(token));
+        dispatch(fetchUser(token));
+        dispatch(fetchAllData(token));
+        // dispatch(fetchActivity(token));
       })
-      // .then(() => {
-      //   browserHistory.push('/dashboard');
-      //   console.log('/dashboard');
-      // })
+      .then(() => {
+        browserHistory.push('/dashboard');
+        console.log('/dashboard');
+      })
       .catch(error => {
         console.log(`${error} (Invalidate Token)`);
         dispatch(invalidateToken);
@@ -77,7 +86,25 @@ const fetchAllData = token => {
   };
 };
 
+const fetchUser = token => {
+  console.log('fetchUser()');
+  return dispatch => {
+    fetch(
+      `${baseApi}sync?token=${token}&sync_token=\'*\'&resource_types=[\"user\"]`
+    )
+      .then(response => response.json())
+      .then(response => {
+        let user = {
+          name: response.user.full_name,
+          avatar: response.user.avatar_medium
+        };
+        dispatch(parseUser(user));
+      });
+  };
+};
+
 const fetchActivity = token => {
+  //https://todoist.com/API/v7/sync?token=ff7405e4dab6e7d15c7da9aa611bd2638a6aaf48&sync_token='*'&resource_types=["all"]
   console.log('fetchActivity()');
   return dispatch => {
     fetch(`https://todoist.com/API/v7/activity/get?token=${token}&limit=100`)

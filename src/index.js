@@ -7,6 +7,7 @@ import Store from './Store';
 import App from './components/App';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
+import Test from './components/Test';
 
 ReactDOM.render(
   <Provider store={Store}>
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Login} />
         <Route path="dashboard" component={Dashboard} />
+        <Route path="test" component={Test} />
       </Route>
     </Router>
   </Provider>,
