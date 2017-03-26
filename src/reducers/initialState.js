@@ -1,5 +1,6 @@
-const initialState = {
-  validToken: null,
+export default {
+  loggedIn: false,
+  validToken: false,
   token: null,
   data: {
     completed: {},
@@ -7,5 +8,3 @@ const initialState = {
   },
   user: {}
 };
-
-export default initialState;

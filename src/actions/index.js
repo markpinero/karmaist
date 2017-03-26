@@ -3,6 +3,25 @@ import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
 import moment from 'moment';
+import cookie from 'react-cookie';
+import config from '../../config';
+
+export const LOGGED_IN = 'LOGGED_IN';
+
+export const loggedIn = bool => ({
+  type: 'LOGGED_IN',
+  bool
+});
+
+export const onLogin = () => {
+  let sessionId = cookie.load(config.session.key);
+
+  if (sessionId) {
+    dispatch(loggedIn(true));
+  } else {
+    dispatch(loggedIn(false));
+  }
+};
 
 export const SET_TOKEN = 'SET_TOKEN';
 export const INVALIDATE_TOKEN = 'INVALIDATE_TOKEN';
@@ -67,7 +86,7 @@ export function fetchData(token) {
 
 const fetchAllData = token => {
   return dispatch => {
-    fetch(`https://todoist.com/API/v7/completed/get_stats?token=${token}`)
+    fetch(`${baseApi}completed/get_stats?token=${token}`)
       .then(response => response.json())
       .then(response => {
         let completed = {
@@ -107,7 +126,7 @@ const fetchActivity = token => {
   //https://todoist.com/API/v7/sync?token=ff7405e4dab6e7d15c7da9aa611bd2638a6aaf48&sync_token='*'&resource_types=["all"]
   console.log('fetchActivity()');
   return dispatch => {
-    fetch(`https://todoist.com/API/v7/activity/get?token=${token}&limit=100`)
+    fetch(`${baseApi}activity/get?token=${token}&limit=100`)
       .then(response => response.json())
       .then(response => {
         // console.log(response);

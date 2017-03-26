@@ -3,7 +3,8 @@ import reducers from '../reducers';
 describe('Reducers', () => {
   it('Should return initial state', () => {
     expect(reducers(undefined, {})).toEqual({
-      validToken: null,
+      loggedIn: false,
+      validToken: false,
       token: null,
       data: {
         activity: {},

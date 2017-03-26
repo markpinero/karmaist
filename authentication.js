@@ -9,6 +9,7 @@ module.exports = app => {
   });
 
   passport.deserializeUser(function(id, done) {
+    // what does this do
     User.findById(id, function(err, user) {
       done(err, user);
     });
@@ -33,6 +34,7 @@ module.exports = app => {
     )
   );
 
+  // @TODO: generate random state
   app.get(
     '/auth/todoist',
     passport.authenticate('todoist', {
@@ -43,20 +45,14 @@ module.exports = app => {
   app.get(
     '/auth/callback',
     passport.authenticate('todoist', {
-      successRedirect: '/auth/complete',
+      successRedirect: '/auth/done',
       failureRedirect: '/dash'
     })
   );
-  app.get('/auth/complete', (req, res) => {
-    // req.session.user = req.session.passport.user;
-    // let session = req.session.accessToken;
-    console.log(req.session);
-    req.headers['X-AUTH-TOKEN'] = req.session.passport.user.token;
-    // res.cookie('tid', req.session.passport.user.token, {
-    //   domain: 'http://localhost:3000',
-    //   path: '/'
-    // });
-    res.redirect('http://localhost:3000/test');
+  app.get('/auth/done', (req, res) => {
+    // res.setHeader('X-AUTH-TOKEN', req.session.passport.user.token);
+    // res.json(req.session.config.session.key);
+    res.redirect('/dashboard');
   });
 
   app.get('/user/data', (req, res) => {
@@ -64,3 +60,9 @@ module.exports = app => {
     res.end();
   });
 };
+
+// 1. user clicks login
+// 2. application logs in with todoist api
+// 3. if matching userID, `Set-Cookie` header to authenticate further pages
+// 4. cookie will be added to all requests
+// 5. authenticate restricted pages with cookie

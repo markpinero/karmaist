@@ -3,7 +3,8 @@ module.exports = {
   clientSecret: '9440205b65f640b7b2b0b377920366fb',
   session: {
     secret: 'sdaofijsalfkds',
-    key: 'dsafdsfasdfsf'
+    key: 'dsafdsfasdfsf',
+    ttl: 60 * 60 * 4
   },
   sites: {
     web: 'localhost:3000/test' // direct url to react frontend

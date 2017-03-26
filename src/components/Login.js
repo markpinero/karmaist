@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchData } from '../actions';
+import { loggedIn } from '../actions';
 
 class Login extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(fetchData(this.state.value));
+    this.props.dispatch(loggedIn(this.state.value));
   }
 
   render() {

@@ -7,16 +7,11 @@ export class Dashboard extends Component {
     return (
       <div>
         <center>
-          <img
-            src={this.props.user.avatar}
-            role="presentation"
-            style={{ borderRadius: '50%' }}
-          />
-          <img
+          {/*}<img
             src={this.props.user.avatar}
             alt="avatar"
             style={{ borderRadius: '50%' }}
-          />
+          />*/}
         </center>
         <h1>Overview of <strong>{this.props.user.name}</strong></h1>
         <Completed
