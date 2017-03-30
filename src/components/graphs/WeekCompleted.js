@@ -63,8 +63,7 @@ class WeekCompleted extends React.Component {
         <Insight bg="#fff">
           {completedChart}
           <Desc>
-            Your most productive day this past week was
-            {' '}
+            Your most productive day this week was
             <Highlight bg="#578aee">{this.state.completed.bestDay}</Highlight>
           </Desc>
         </Insight>
